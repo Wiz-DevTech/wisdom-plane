@@ -211,10 +211,15 @@
 | **On-chain Vote Record** | Every vote recorded as a CipherNex transaction with UCC memo. Immutable audit trail | High — legal defensibility |
 | **Public Proposal Feed** | masseyrosupo.com public page showing active proposals, voting period, current result (yes/no/abstain counts). No auth needed | Medium — transparency |
 
-### Technical Ideas
+### Token & DeFi Architecture
 
 | Idea | Description | Potential Value |
 |---|---|---|
+| **WDT Utility Token (Polygon + OpenZeppelin)** | Wiz-Dev Tech utility token on Polygon. ERC-20 base with AccessControl, Pausable, ERC-20Snapshot (DAO voting), ERC-20Burnable (burn on service use). Separate from CIPR — utility class, open market, commodity treatment. Grants access to platform services, API calls, AI queries, entity provisioning, DAO proposals | Critical — creates service revenue layer for Wiz-Dev Tech LLC separate from trust operations |
+| **Dual-Chain Architecture** | XRPL handles CIPR trust instrument + membership NFTs (native issued currency, TrustSet, XLS-20). Polygon handles WDT utility token + DAO governance (OpenZeppelin). Two chains, two legal classes, one ecosystem. Not competing — complementary layers | Critical — cleanly separates trust instrument (CIPR/XRPL) from utility (WDT/Polygon) |
+| **WDT ↔ CIPR Association Layer** | WDT token holders get preferential CIPR issuance rates. CIPR holders get WDT service credits. WDT treasury holds a CIPR reserve allocation. Creates closed-loop ecosystem between trust layer and service layer | High — organic CIPR circulation through utility demand |
+| **WDT Service Menu** | Platform access (100 WDT/mo), entity provisioning (500 WDT), document registration (50 WDT), AI assistant queries (1 WDT each), CIPR issuance request (200 WDT), API access (10 WDT/1000 calls), DAO proposal submission (1000 WDT) | High — tokenized service pricing model |
+| **OpenZeppelin Contract Stack** | ERC-20 (WDT fungible token) + AccessControl (Wiz-Dev Tech admin roles) + Pausable (compliance emergency stop) + ERC-20Snapshot (DAO voting) + ERC-20Burnable (burn on service use). Battle-tested, audited, industry standard | High — security foundation without reinventing the wheel |
 | **DeFi Seed Shuffler** | Tool for securely generating, splitting, and storing wallet seed phrases. Splits seed into Shamir Secret Sharing shares — no single location holds the full seed. Shares distributed across trusted parties (Trustees, Co-Trustees). Reconstruction requires quorum. Integrates with Trezor recovery flow and wisdom-vault | Critical — cold wallet seed protection for WIBT trust structure |
 | **Mobile App (React Native)** | wisdomignited.com as a native app. Access entity manager, ledger, AI assistant, Mattermost notifications from phone | High — iPad/iPhone access without browser limitations |
 | **Offline Admin Mode** | Admin portal works offline — queues transactions locally, syncs when back online. Critical for air-gapped Trezor signing | High — security for cold wallet ops |
