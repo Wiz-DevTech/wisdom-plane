@@ -150,3 +150,72 @@
 
 *Last updated: 2026-04-13 by Claude-onChain*
 *Import this file into Plane once I-4 is complete.*
+
+---
+
+## PROJECT 5 — Ideas & Brainstorm
+
+*Parking lot for concepts to explore — not yet scoped or scheduled.*
+
+### 🧠 AI & Infrastructure
+
+| # | Idea | Notes |
+|---|---|---|
+| B-1 | OpenRouter API integration | Replace direct Anthropic API calls with OpenRouter — one key, multiple models, pay per token. Use free Llama 3.1 8B for RAG retrieval, Claude Sonnet for reasoning |
+| B-2 | RAG knowledge base | pgvector on ops server — embed all markdown docs, entity records, tasks, vault files. Powers smarter AI assistant in wisdomignited.com |
+| B-3 | Two-layer AI architecture | Cheap model (Llama via OpenRouter) for retrieval → Claude Sonnet for final answer. Minimal cost, maximum quality |
+| B-4 | Local LLM for Trezor sessions | Offline AI for cold wallet signing operations — no external API calls during sensitive operations. Needs dedicated ARM server (Hetzner CAX31 ~€7/mo) — defer until needed |
+| B-5 | DAO GovernanceService | Proposals, voting weighted by CIPR balance + tier, quorum rules, treasury — new CipherNex microservice port 3007 |
+
+### 🔗 Blockchain & Tokens
+
+| # | Idea | Notes |
+|---|---|---|
+| B-6 | XRPL mainnet bridge | Connect CipherNex private chain to XRPL public ledger — every settlement produces a public XRPL tx hash stored in wisdomignited.com |
+| B-7 | NFT member credentials (XLS-20) | Non-transferable, Trustee-burnable — one per entity. Architecture built, Trezor signing UI still needed in admin portal |
+| B-8 | Public CIPR reserve status page | Read-only view on masseyrosupo.com — circulating supply, reserve ratio, trust lines |
+| B-9 | Polygon document hashing | Hash each registered document on Polygon — immutable proof of existence. Already has hash fields in DB |
+
+### 🏛️ Platform & DAO
+
+| # | Idea | Notes |
+|---|---|---|
+| B-10 | wisdomignited.com DAO tab | Create proposals, cast votes, view treasury — after GovernanceService is built |
+| B-11 | Public governance page on masseyrosupo.com | Transparency layer — proposal viewer, no auth required |
+| B-12 | Member directory on wisdomignited.com | All 15 entities as members with CIPR balance, NFT status, tier, role |
+| B-13 | External entity onboarding flow | Outside private entities joining the trust network — Firebase auth + AdminGateway observer/co-trustee provisioning |
+
+---
+
+## SESSION LOG — 2026-04-13
+
+*What was accomplished this session — for continuity.*
+
+| Done | Item |
+|---|---|
+| ✅ | All 3 repos merged to main (MasseyRosupo, Private_block_chain_Template, wisdom-platform) |
+| ✅ | wisdom-vault created — all credentials, servers, DNS, recovery docs |
+| ✅ | wisdom-mattermost, wisdom-plane, wisdom-notify repos created and pushed |
+| ✅ | All 7 repos tagged v1.0.0 with GitHub Releases |
+| ✅ | Remote feature branches deleted — all repos clean on main only |
+| ✅ | Cloudflare DNS — api + admin subdomains added manually (pointing to 37.27.214.143) |
+| ✅ | DNS confirmed live — api.wisdomignited.com resolving |
+| ✅ | Decision: OpenRouter API instead of direct Anthropic for app AI |
+| ✅ | Decision: Second Hetzner CX32 for ops (Mattermost + Plane + Notify) |
+| ✅ | Decision: Option C architecture — CipherNex isolated, ops on separate server |
+| ⏳ | Hetzner SSH access — workaround via second device in progress |
+| ⏳ | Trezor now available — XRPL wallet generation next |
+| ⏳ | Cloudflare DNS — chat + plane subdomains still pending |
+
+## NEXT SESSION PRIORITIES
+
+| Priority | Task | Notes |
+|---|---|---|
+| 1 | Regain Hetzner SSH via second device | Run rescue mode key generation |
+| 2 | Generate XRPL hot wallet | node xrpl.js Wallet.generate() from Codespace |
+| 3 | Set Trezor cold wallet address | Trezor Suite → Ethereum → m/44'/60'/0'/0/0 |
+| 4 | Set UD ETH records | CipherNex.ministry + CipherNex.tribe |
+| 5 | Provision new CX32 ops server | New Hetzner server for Mattermost + Plane |
+| 6 | Update OpenRouter in wisdom-platform | Replace Anthropic direct API calls |
+| 7 | Deploy Mattermost on ops server | Once SSH access restored |
+| 8 | Deploy Plane on ops server | Import TASKS.md automatically via API |
