@@ -1,0 +1,31 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          body: |
+            ## wisdom-plane — ${{ github.ref_name }}
+            **Live at:** https://plane.wisdomignited.com
+            **Server:** Hetzner `37.27.214.143`
+
+            Self-hosted project management for Wisdom Ignited Business Trust.
+            Replaces ClickUp. Works in any browser — no App Store required.
+
+            ### Projects
+            - **CipherNex** — blockchain node tasks, member provisioning, NFT credentialing
+            - **Entities** — entity formation, document filing, compliance actions
+            - **Infrastructure** — server maintenance, deployments, DNS, SSL
+
+            ### Integration
+            Issues are created automatically via `wisdom-notify` when:
+            - Urgent documents are added in wisdomignited.com
+            - CipherNex alerts fire (chain integrity, reserve ratio)
