@@ -148,6 +148,81 @@
 
 ---
 
+## PROJECT 5 — AI & Integrations
+
+### 🔴 Urgent
+
+| # | Task | Detail | Blocked By |
+|---|---|---|---|
+| A-1 | Create OpenRouter account | openrouter.ai → generate API key → add credits | Nothing |
+| A-2 | Update wisdomignited.com AI to use OpenRouter | Replace Anthropic direct API with OpenRouter endpoint | A-1 |
+| A-3 | Add OPENROUTER_API_KEY to Kamatera .env | Replace ANTHROPIC_API_KEY | A-1 |
+
+### 🟡 High
+
+| # | Task | Detail | Blocked By |
+|---|---|---|---|
+| A-4 | Build RAG knowledge base | Embed all markdown docs from all repos into pgvector | I-1, A-1 |
+| A-5 | Wire RAG into AI assistant | Two-layer: Llama 3.1 retrieval + Claude Sonnet reasoning | A-4 |
+| A-6 | Auto-index on deploy | Re-embed docs on every push to main | A-4 |
+
+### 🟢 Normal
+
+| # | Task | Detail | Blocked By |
+|---|---|---|---|
+| A-7 | Add entity + document live sync to RAG | Embed wisdomignited.com DB records on create/update | A-5 |
+| A-8 | Add Plane task sync to RAG | AI assistant can answer questions about current tasks | A-5, I-4 |
+| A-9 | Add Mattermost bot | AI responds to @mentions in channels | A-5, I-3 |
+
+---
+
+## 💡 IDEAS & BRAINSTORM
+*Potential features and client-facing options — to be refined into tasks*
+
+### Client-Facing Features
+
+| Idea | Description | Potential Value |
+|---|---|---|
+| **Client Portal — CIPR Dashboard** | Each client entity sees their own CIPR balance, trust line status, NFT credential, and transaction history. Read-only, Firebase-authenticated | High — gives members visibility into their on-chain position |
+| **Client Portal — Document Request** | Client submits a document request from masseyrosupo.com → creates Plane task automatically → Trustee fulfills → client notified via email | High — formalizes the filing intake process |
+| **Client Portal — Bill of Exchange Composer** | Client-facing simplified version of the admin BoE composer. Fills in parties, amount, selects UCC tender type → Trustee reviews and approves before minting | High — removes manual back-and-forth |
+| **Client Portal — Settlement Tracker** | Shows each instrument's status: Issued → Tendered → Accepted → Discharged. Visual timeline per document | Medium — transparency builds trust |
+| **Entity Public Profile** | Public page per entity (no auth) showing name, tier, type, XRPL address, membership NFT token ID, CIPR balance. Linked from masseyrosupo.com routing map | Medium — proof of membership for outside parties |
+| **Membership Certificate PDF** | Auto-generated PDF certificate of trust network membership. Includes entity name, tier, NFT token ID, issuance date, Trustee signature field | Medium — physical/digital credential for clients |
+
+### Operational Features
+
+| Idea | Description | Potential Value |
+|---|---|---|
+| **Automated UCC-1 Filing** | When a document is registered in DocumentService, automatically trigger a Delaware SOS UCC-1 filing via a registered filing service API | High — removes manual step |
+| **IRS EIN Verification** | Validate entity EIN on entry via IRS TIN Matching API before allowing document registration | High — prevents bad data |
+| **XRPL Transaction Explorer** | Embedded in wisdomignited.com ledger — click any XRPL hash to see full transaction detail from XRPL mainnet | Medium — auditability |
+| **Polygon Document Hashing** | On document upload, hash the file and submit to Polygon. Store hash in document record. Proves document existed at a point in time | Medium — legal provenance |
+| **Multi-sig Treasury** | XRPL multi-signature account requiring 2-of-3 Trustee signatures for any treasury movement above a threshold | High — security for large movements |
+| **Automated Reserve Report** | Weekly PDF report of CIPR reserve ratio, circulating supply, active trust lines, retired documents. Sent to Trustee via Mattermost | Medium — compliance record |
+
+### DAO Features
+
+| Idea | Description | Potential Value |
+|---|---|---|
+| **Proposal Templates** | Pre-built proposal types: Distribution, New Member, Document Approval, Reserve Adjustment. Members select template, fill fields | High — lowers barrier to governance participation |
+| **Voting Power by Tier** | Tier 2 = 10 votes, Tier 3 = 3 votes, Tier 4 = 1 vote. Weighted by CIPR allocation | High — fair representation |
+| **Snapshot Voting** | CIPR balance at proposal creation time determines voting power — prevents last-minute token transfers to sway votes | High — governance integrity |
+| **On-chain Vote Record** | Every vote recorded as a CipherNex transaction with UCC memo. Immutable audit trail | High — legal defensibility |
+| **Public Proposal Feed** | masseyrosupo.com public page showing active proposals, voting period, current result (yes/no/abstain counts). No auth needed | Medium — transparency |
+
+### Technical Ideas
+
+| Idea | Description | Potential Value |
+|---|---|---|
+| **Mobile App (React Native)** | wisdomignited.com as a native app. Access entity manager, ledger, AI assistant, Mattermost notifications from phone | High — iPad/iPhone access without browser limitations |
+| **Offline Admin Mode** | Admin portal works offline — queues transactions locally, syncs when back online. Critical for air-gapped Trezor signing | High — security for cold wallet ops |
+| **Hardware Security Module** | Replace software JWT secrets with HSM-backed keys. IBM Cloud HSM or AWS CloudHSM | Medium — enterprise-grade secret management |
+| **IPFS Document Storage** | Upload documents to IPFS instead of local server. Hash stored on-chain. Documents survive server changes | Medium — decentralized storage |
+| **Webhook Marketplace** | External parties can subscribe to CipherNex events (member provisioned, CIPR issued) via authenticated webhooks. Enables B2B integrations | Low — future monetization |
+
+---
+
 *Last updated: 2026-04-13 by Claude-onChain*
 *Import this file into Plane once I-4 is complete.*
 
