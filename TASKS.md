@@ -215,6 +215,7 @@
 
 | Idea | Description | Potential Value |
 |---|---|---|
+| **DeFi Seed Shuffler** | Tool for securely generating, splitting, and storing wallet seed phrases. Splits seed into Shamir Secret Sharing shares — no single location holds the full seed. Shares distributed across trusted parties (Trustees, Co-Trustees). Reconstruction requires quorum. Integrates with Trezor recovery flow and wisdom-vault | Critical — cold wallet seed protection for WIBT trust structure |
 | **Mobile App (React Native)** | wisdomignited.com as a native app. Access entity manager, ledger, AI assistant, Mattermost notifications from phone | High — iPad/iPhone access without browser limitations |
 | **Offline Admin Mode** | Admin portal works offline — queues transactions locally, syncs when back online. Critical for air-gapped Trezor signing | High — security for cold wallet ops |
 | **Hardware Security Module** | Replace software JWT secrets with HSM-backed keys. IBM Cloud HSM or AWS CloudHSM | Medium — enterprise-grade secret management |
