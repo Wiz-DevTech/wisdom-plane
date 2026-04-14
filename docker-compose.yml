@@ -48,7 +48,7 @@ services:
         condition: service_healthy
       plane-redis:
         condition: service_started
-    command: ./bin/takeoff
+    command: /bin/sh -c "python manage.py migrate && gunicorn -w 2 -b 0.0.0.0:8000 plane.asgi:application -k uvicorn.workers.UvicornWorker"
     environment:
       <<: *app-env
     volumes:
@@ -67,7 +67,7 @@ services:
     image: makeplane/plane-backend:stable
     container_name: plane-worker
     restart: unless-stopped
-    command: ./bin/worker
+    command: /bin/sh -c "celery -A plane worker -l info"
     depends_on:
       - plane-api
     environment:
@@ -79,7 +79,7 @@ services:
     image: makeplane/plane-backend:stable
     container_name: plane-beat-worker
     restart: unless-stopped
-    command: ./bin/beat
+    command: /bin/sh -c "celery -A plane beat -l info"
     depends_on:
       - plane-api
     environment:
