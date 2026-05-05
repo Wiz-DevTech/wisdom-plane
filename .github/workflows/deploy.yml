@@ -1,0 +1,61 @@
+name: Deploy Plane
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [closed]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    
+    environment:
+      name: production
+      url: https://plane.wisdomignited.com
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H 37.27.214.143 >> ~/.ssh/known_hosts
+
+      - name: Sync and deploy
+        run: |
+          rsync -avz \
+            --exclude='.git/' \
+            --exclude='.env' \
+            --exclude='volumes/' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./ deployer@37.27.214.143:/opt/wisdom-plane/
+          
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no deployer@37.27.214.143 << 'REMOTE'
+            set -e
+            cd /opt/wisdom-plane
+
+            echo "── Pulling latest code ──────────────────────────────────"
+            git pull origin main
+
+            echo "── Rebuilding and restarting containers ──────────────────"
+            docker compose pull
+            docker compose up -d --build
+
+            echo "── Waiting for health checks ─────────────────────────────"
+            sleep 10
+
+            echo "── Container status ──────────────────────────────────────"
+            docker compose ps
+
+            echo "── Checking API health ───────────────────────────────────"
+            curl -sf http://localhost:8000/health && echo "✅ Plane API healthy"
+
+            echo "✅ Deploy complete at $(date)"
+          REMOTE
