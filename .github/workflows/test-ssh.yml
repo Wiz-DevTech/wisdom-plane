@@ -1,0 +1,21 @@
+name: Test SSH Connection
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test SSH to Hetzner
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 37.27.214.143
+          username: deployer
+          key: ${{ secrets.DEPLOYER_SSH_KEY }}   # Changed from SERVER_SSH_KEY
+          port: 443
+          script: |
+            echo "✅ Connected to $(hostname)"
+            echo "User: $(whoami)"
+            echo "Docker: $(docker --version)"
+            docker ps --format "table {{.Names}}" | head -5
