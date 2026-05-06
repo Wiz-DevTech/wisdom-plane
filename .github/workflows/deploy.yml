@@ -37,7 +37,7 @@ jobs:
             -e "ssh -p 443 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ deployer@37.27.214.143:/opt/wisdom-plane/
           
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no deployer@37.27.214.143 << 'REMOTE'
+          ssh -p 443 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no deployer@37.27.214.143 << 'REMOTE'
             set -e
             cd /opt/wisdom-plane
 
