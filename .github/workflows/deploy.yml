@@ -34,7 +34,7 @@ jobs:
             --exclude='.git/' \
             --exclude='.env' \
             --exclude='volumes/' \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            -e "ssh -p 443 -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ deployer@37.27.214.143:/opt/wisdom-plane/
           
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no deployer@37.27.214.143 << 'REMOTE'
