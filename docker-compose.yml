@@ -83,7 +83,7 @@ services:
       plane-redis:
         condition: service_started
 
-  command: gunicorn plane.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
+    command: gunicorn plane.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
     environment:
       <<: *app-env
       ENABLE_SIGNUP: "1"
